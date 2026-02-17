@@ -1,0 +1,139 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #056400;
+  --ifm-color-primary-dark: #045a00;
+  --ifm-color-primary-darker: #045500;
+  --ifm-color-primary-darkest: #034600;
+  --ifm-color-primary-light: #056e00;
+  --ifm-color-primary-lighter: #067300;
+  --ifm-color-primary-lightest: #068200;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #0bcf00;
+  --ifm-color-primary-dark: #0aba00;
+  --ifm-color-primary-darker: #09b000;
+  --ifm-color-primary-darkest: #089100;
+  --ifm-color-primary-light: #0ce400;
+  --ifm-color-primary-lighter: #0dee00;
+  --ifm-color-primary-lightest: #1bff0e;
+  --ifm-background-color: #111111;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+}
+
+/* Losowy kod z neta */
+:root {
+  --ifm-navbar-height: 60px;
+  --ifm-navbar-padding-vertical: 0.5rem;
+}
+
+.navbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar__logo {
+  margin-right: 2rem;
+  transition: transform var(--ifm-transition-fast);
+}
+
+.navbar__logo:hover {
+  transform: scale(1.25);
+}
+
+.dropdown-separator {
+  margin: 0.5rem 0;
+  border-top: 1px solid var(--ifm-dropdown-link-color);
+}
+
+.footer--dark {
+  --ifm-footer-background-color: #242526;
+}
+
+.footer__link-item:hover {
+  color: #0bcf00;
+}
+
+
+/* hero */
+
+.hero__image {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 2rem;
+}
+
+/* Hero - title color */
+.hero--primary {
+    color: #fff;
+  }
+
+/* ============================================
+   TYTUŁY POSTÓW NA LIŚCIE BLOGÓW
+   ============================================ */
+
+/* Tytuł posta - kolor jak zwykły tekst */
+.blog-list-page article header h2 a,
+article.margin-bottom--xl header h2 a {
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: none;
+}
+
+/* Hover - podkreślenie */
+.blog-list-page article header h2 a:hover,
+article.margin-bottom--xl header h2 a:hover {
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: underline;
+}
+
+/* ============================================
+   AUTOR POSTA
+   ============================================ */
+
+/* Autor - kolor jak zwykły tekst */
+.avatar__name,
+.avatar__intro .avatar__name {
+  color: var(--ifm-font-color-base) !important;
+}
+
+/* Link autora - kolor jak zwykły tekst */
+.avatar__name a,
+.avatar__intro .avatar__name a {
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: none;
+}
+
+/* Hover - podkreślenie */
+.avatar__name a:hover,
+.avatar__intro .avatar__name a:hover {
+  color: var(--ifm-font-color-base) !important;
+  text-decoration: underline;
+}
+/* Ukrycie autora na blogu */
+.avatar,
+.avatar__intro {
+  display: none !important;
+}
+/* Fix spacing */
+.blog-list-page article header,
+.blog-post-page article header {
+  margin-bottom: 1.5rem;
+}
+
+
+article[class*="docItemCol"]::before {
+  content: '';
+  display: block;
+  height: 300px;
+  background-image: url('https://img.freepik.com/premium-photo/climate-change-reforestation-heroes-million-trees-planted-greening-world-nature-s-reviva_971975-8424.jpg');
+  background-size: cover;
+  margin-bottom: 2rem;
+}

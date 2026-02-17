@@ -1,0 +1,210 @@
+/* Jedno źródło prawdy dla wysokości siatki */
+:root {
+  --schedule-height: 42rem;
+}
+
+.wrapper {
+  width: 100%;
+  margin: 1rem 0 2rem;
+}
+
+/* Pasek narzędzi + reset przycisku pod Infimę */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .75rem 1rem;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.filterBtn {
+  appearance: none;
+  -webkit-appearance: none;
+  padding: .35rem .7rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: .5rem;
+  background: var(--ifm-background-surface-color);
+  cursor: pointer;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+.filterBtn:hover {
+  border-color: var(--ifm-color-primary);
+}
+.active {
+  color: #fff;
+  background: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem 1rem;
+  font-size: .85rem;
+}
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+.colorDot {
+  display: inline-block;
+  width: .75rem;
+  height: .75rem;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 1px rgba(0,0,0,.15);
+}
+
+/* GRID (desktop) */
+.grid {
+  display: grid;
+  grid-template-columns: 6rem repeat(7, 1fr);
+  gap: 0.5rem;
+}
+
+/* Lewa kolumna czasu */
+.timeCol {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.dayHeaderSpacer {
+  height: 2.2rem; /* taki sam jak .dayHeader */
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-surface-color);
+}
+.timeBody {
+  position: relative;
+  height: var(--schedule-height);
+  display: grid;
+  grid-auto-rows: 1fr; /* każda pełna godzina = równy wiersz */
+}
+.timeRow {
+  position: relative;
+  font-size: .8rem;
+  color: var(--ifm-color-emphasis-700);
+  display: flex;
+  align-items: flex-start;
+  padding-top: .25rem;
+}
+.timeRow + .timeRow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: .25rem;
+  left: .25rem;
+  height: 1px;
+  background: var(--ifm-color-emphasis-300);
+  opacity: .35;
+}
+
+/* Kolumny dni */
+.dayCol { position: relative; }
+.dayHeader {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--ifm-background-surface-color);
+  padding: .25rem .25rem .35rem;
+  text-align: center;
+  font-weight: 600;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+.dayBody {
+  position: relative;
+  height: var(--schedule-height);
+  background: var(--ifm-background-color);
+  border-radius: .5rem;
+  overflow: hidden;
+  border: 1px solid var(--ifm-color-emphasis-300);
+}
+
+/* Linie godzinowe rysowane na tle dnia */
+.hourLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--ifm-color-emphasis-200);
+  opacity: .4;
+  pointer-events: none;
+  transform: translateY(-0.5px); /* optyczne wyrównanie */
+}
+
+/* Wydarzenia */
+.event {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  border-radius: .4rem;
+  color: #fff;
+  padding: .35rem .45rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.15);
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+}
+.eventTitle {
+  font-weight: 700;
+  line-height: 1.1;
+}
+.eventMeta {
+  font-size: .8rem;
+  opacity: .95;
+}
+
+/* MOBILE fallback */
+.mobileList { display: none; }
+
+.dayCard {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: .5rem;
+  overflow: hidden;
+}
+.dayCard + .dayCard { margin-top: .75rem; }
+.dayCardHeader {
+  background: var(--ifm-background-surface-color);
+  font-weight: 700;
+  padding: .5rem .75rem;
+  border-bottom: 1px solid var(--ifm-color-emphasis-300);
+}
+.dayCardList {
+  list-style: none;
+  margin: 0;
+  padding: .5rem;
+}
+.dayCardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: .5rem;
+  padding: .4rem .25rem;
+}
+.itemText { display: flex; flex-direction: column; gap: .15rem; }
+.itemTitle { font-weight: 600; }
+.itemMeta { font-size: .85rem; color: var(--ifm-color-emphasis-700); }
+.empty {
+  color: var(--ifm-color-emphasis-700);
+  font-style: italic;
+  padding: .4rem .25rem;
+}
+
+.disclaimer {
+  margin-top: 1rem;
+  font-size: .85rem;
+  color: var(--ifm-color-emphasis-700);
+}
+
+/* RWD */
+@media (max-width: 996px) {
+  .grid { display: none; }
+  .mobileList { display: block; }
+}

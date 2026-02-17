@@ -1,0 +1,30 @@
+---
+title: Trening indywidualny
+---
+
+<div style={{
+  backgroundImage: 'url(/img/hero-image.png)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  height: '400px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginLeft: 'calc(-50vw + 50%)',
+  marginRight: 'calc(-50vw + 50%)',
+  marginBottom: '3rem',
+  width: '100vw'
+}}>
+  <h1 style={{color: 'white', fontSize: '3rem', textShadow: '2px 2px 4px rgba(0,0,0,0.7)'}}>
+    Trening indywidualny
+  </h1>
+</div>
+
+You don't need React to write simple standalone pages.
+
+
+import Schedule from '@site/src/components/Schedule/Schedule';
+
+# Grafik zajęć
+
+<Schedule />
