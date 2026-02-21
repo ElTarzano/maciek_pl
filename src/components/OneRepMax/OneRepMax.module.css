@@ -1,23 +1,23 @@
-/* ── Zmienne ── */
+/* ── Zmienne kalkulatora ── */
 :root {
-  --orm-primary: var(--ifm-color-success, #2e8540);
+  --orm-primary: #2e8540;
+  --orm-bw: #8e44ad;
   --orm-track-bg: rgba(0, 0, 0, 0.16);
 }
 
 /* ── Wrapper ── */
 .wrapper {
-  border: 1px solid var(--ifm-color-emphasis-300);
+  border: 1px solid var(--ifm-color-emphasis-300, #bdbdbd);
   border-radius: 12px;
   padding: 16px;
   margin: 16px 0;
-  background: var(--ifm-background-surface-color);
+  background: var(--ifm-background-surface-color, #fff);
 }
 
 /* ── Suwak ── */
 .range {
   -webkit-appearance: none;
   appearance: none;
-  /* flex: 1 wypełnia całe wolne miejsce w wierszu */
   flex: 1 1 0;
   min-width: 0;
   height: 6px;
@@ -62,6 +62,20 @@
   background: var(--orm-primary);
 }
 
+/* Wariant suwaka masy ciała – akcent fioletowy */
+.rangeBw {
+  background: linear-gradient(
+          to right,
+          var(--orm-bw) 0%,
+          var(--orm-bw) var(--fill, 0%),
+          var(--orm-track-bg) var(--fill, 0%),
+          var(--orm-track-bg) 100%
+  );
+}
+.rangeBw::-webkit-slider-thumb { background: var(--orm-bw); }
+.rangeBw::-moz-range-thumb     { background: var(--orm-bw); }
+.rangeBw::-moz-range-progress  { background: var(--orm-bw); }
+
 /* ── Przełącznik ── */
 .switch {
   position: relative;
@@ -73,7 +87,7 @@
 .switchSlider {
   position: absolute; inset: 0;
   cursor: pointer;
-  background: var(--ifm-color-emphasis-200);
+  background: var(--ifm-color-emphasis-200, #e0e0e0);
   border-radius: 999px;
   transition: background 0.2s ease;
 }
@@ -96,7 +110,6 @@
   display: flex;
   gap: 12px;
   align-items: center;
-  /* brak flex-wrap – suwak ma się rozciągać */
 }
 
 /* ── Pole liczby z sufiksem ── */
@@ -105,8 +118,8 @@
   width: 100px;
   padding: 8px 32px 8px 10px;
   border-radius: 8px;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  background: var(--ifm-background-color);
+  border: 1px solid var(--ifm-color-emphasis-300, #bdbdbd);
+  background: var(--ifm-background-color, #fff);
 }
 .number:focus { outline: 2px solid rgba(46, 133, 64, 0.35); }
 .number::-webkit-inner-spin-button,
@@ -115,10 +128,32 @@
 .suffix {
   position: absolute;
   right: 8px; top: 50%; transform: translateY(-50%);
-  color: var(--ifm-font-color-secondary);
+  color: var(--ifm-font-color-secondary, #757575);
   pointer-events: none; font-weight: 600;
 }
 .label { display: block; font-weight: 600; margin-bottom: 4px; }
+
+/* ── Sekcja masy ciała ── */
+.bwSection {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: var(--ifm-color-emphasis-100, #f5f5f5);
+  border-left: 4px solid var(--orm-bw);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.bwLabel { display: block; font-weight: 600; margin-bottom: 2px; }
+.bwHint  { font-size: 12px; opacity: 0.7; margin: 0; }
+
+/* Przełącznik "masa własnego ciała" – wiersz inline */
+.bwToggleRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
 
 /* ── Przełącznik wewnątrz bloku highlight ── */
 .highlightSwitchRow {
@@ -127,13 +162,30 @@
   gap: 10px;
   margin: 10px 0 0;
   padding-top: 10px;
-  border-top: 1px solid var(--ifm-color-emphasis-200);
+  border-top: 1px solid var(--ifm-color-emphasis-200, #e0e0e0);
+}
+
+/* Notatka BW w etykiecie – styl identyczny z etykietą ciężaru */
+.labelBwNote {
+  font-weight: 600;
+  margin-left: 6px;
+}
+
+/* ── Wiersz dwóch równorzędnych bloków highlight ── */
+.highlightRow {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.highlightRow > dl {
+  min-width: 0;
+  /* flex: 1 ustawiane inline */
 }
 
 /* ── Blok wyróżniony (Średnia / Ciężar dla) ── */
 .highlight {
   padding: 14px 16px;
-  background: var(--ifm-color-emphasis-100);
+  background: var(--ifm-color-emphasis-100, #f5f5f5);
   border-left: 4px solid var(--orm-primary);
   border-radius: 8px;
   margin: 0;
@@ -149,6 +201,10 @@
 }
 .highlightSelected { border-left-color: #2980b9; }
 .highlightSelected .highlightValue { color: #2980b9; }
+/* Blok "bez masy ciała" – fioletowy */
+.highlightBw { border-left-color: var(--orm-bw); }
+.highlightBw .highlightValue { color: var(--orm-bw); }
+.highlightBw .highlightLabel { color: inherit; }
 
 /* ── Karty formuł – jeden rząd na desktop ── */
 .formulaGrid {
@@ -163,15 +219,31 @@
   .formulaGrid { grid-template-columns: repeat(2, 1fr); }
 }
 .card {
-  border: 1px solid var(--ifm-color-emphasis-200);
+  border: 1px solid var(--ifm-color-emphasis-200, #e0e0e0);
   border-radius: 6px; padding: 7px 10px;
-  background: var(--ifm-background-color); margin: 0;
+  background: var(--ifm-background-color, #fff); margin: 0;
 }
 .card dt {
   font-size: 11px; opacity: 0.7; margin: 0 0 2px;
   text-transform: uppercase; letter-spacing: 0.03em;
 }
 .card dd { font-weight: 600; font-size: 15px; margin: 0; }
+.cardValueGreen {
+  font-weight: 600; font-size: 15px; margin: 0;
+  color: var(--orm-primary);
+}
+.cardValueBw {
+  font-weight: 600; font-size: 15px; margin: 2px 0 0;
+  color: var(--orm-bw);
+}
+
+/* Przełącznik "Pokaż formuły" – poza blokami highlight */
+.showFormulasRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
 
 .formulaSource {
   font-size: 12px; opacity: 0.7;
@@ -197,7 +269,6 @@
 /* ── Tabela ── */
 .tableWrap { min-width: 0; }
 .tableWrap h4 { margin: 0 0 8px; }
-/* contain: inline-size – akapit nie uczestniczy w obliczaniu szer. rodzica */
 .tableNote {
   font-size: 13px; opacity: 0.85;
   margin-top: 8px;
@@ -220,14 +291,11 @@
 }
 .vizTitle { margin: 0 0 8px; }
 
-/* Gryf – wypełnia dostępną szerokość przez flex */
 .vizBarbell {
   display: flex;
   align-items: center;
   width: 100%;
-  /* wysokość ustawiana inline przez maxH + 20 */
 }
-/* Pręt – rośnie by wypełnić wolną przestrzeń */
 .vizBar {
   flex: 1 1 auto;
   min-width: 16px;
@@ -265,15 +333,18 @@
 .vizPlate:hover { opacity: 0.82; }
 
 .vizBarbellSelect {
-  display: flex; align-items: center; gap: 8px; font-size: 13px;
+  display: flex; align-items: center; gap: 8px;
+  font-size: var(--ifm-font-size-base, 16px);
+  font-weight: 600;
 }
 .vizBarbellSelect select {
-  padding: 3px 6px; border-radius: 6px;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  background: var(--ifm-background-color);
-  font-size: 13px; cursor: pointer;
+  padding: 5px 10px; border-radius: 6px;
+  border: 1px solid var(--ifm-color-emphasis-300, #bdbdbd);
+  background: var(--ifm-background-color, #fff);
+  font-size: var(--ifm-font-size-base, 16px);
+  font-weight: 600;
+  cursor: pointer;
 }
-/* Powiększony tekst listy talerzy */
 .vizList {
   font-size: 18px;
   line-height: 1.8;
@@ -293,7 +364,7 @@
 }
 .vizRemainder {
   font-size: 15px;
-  color: var(--ifm-color-danger);
+  color: var(--ifm-color-danger, #d32f2f);
   margin-top: 4px;
 }
 .vizOverflow {
