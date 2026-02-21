@@ -21,7 +21,7 @@ const PCT_MIN = 40;
 const PCT_MAX = 100;
 const PCT_ROWS = [100, 95, 90, 85, 80, 75, 70, 65, 60, 55, 50, 45, 40];
 
-/* Dostępne rozmiary talerzy (kg) – od największego */
+/* Dostępne rozmiary talerzy (kg) */
 const PLATE_SIZES = [25, 20, 15, 10, 5, 2.5, 1.25];
 
 /* Kolory talerzy (z grubsza zbliżone do standardów) */

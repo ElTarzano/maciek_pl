@@ -1,7 +1,7 @@
 /* ── Zmienne ── */
 :root {
   --orm-primary: var(--ifm-color-success, #2e8540);
-  --orm-track-bg: rgba(0, 0, 0, 0.15);
+  --orm-track-bg: rgba(0, 0, 0, 0.16);
 }
 
 /* ── Wrapper ── */
