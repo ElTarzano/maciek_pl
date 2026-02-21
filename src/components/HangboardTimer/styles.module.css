@@ -1,0 +1,412 @@
+/* ============================================================
+   HangboardTimer — CSS Module
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ============================================================
+   Zmienne — motyw ciemny (domyślny)
+   ============================================================ */
+.container {
+    --ht-bg:             #0f0f0f;
+    --ht-toolbar:        #070707;
+    --ht-surface:        #1a1a1a;
+    --ht-surface-alt:    #232323;
+    --ht-border:         #2e2e2e;
+    --ht-border-strong:  #505050;
+    --ht-text:           #f0ede8;
+    --ht-text-muted:     #888;
+    --ht-text-sub:       #4a4a4a;
+
+    --ht-work-accent:    #16dc64;
+    --ht-work-bg:        rgba(22, 220, 100, 0.18);
+    --ht-rest-accent:    #3891ff;
+    --ht-rest-bg:        rgba(56, 145, 255, 0.20);
+    --ht-prepare-accent: #ffaf1e;
+    --ht-prepare-bg:     rgba(255, 175, 30, 0.20);
+    --ht-danger:         #ff4d4d;
+    --ht-best-lap:       #ffd700;
+
+    --ht-nav-bg:         rgba(255,255,255,0.06);
+    --ht-nav-border:     #444;
+
+    --ht-font-display: 'Bebas Neue', 'Impact', sans-serif;
+    --ht-font-mono:    'DM Mono', 'Courier New', monospace;
+
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--ht-bg);
+    color: var(--ht-text);
+    font-family: var(--ht-font-mono);
+    box-sizing: border-box;
+    z-index: 0;
+}
+
+:global(html[data-theme='light']) .container {
+    --ht-bg:             #eeece8;
+    --ht-toolbar:        #d8d5ce;
+    --ht-surface:        #ffffff;
+    --ht-surface-alt:    #f0ede8;
+    --ht-border:         #ccc9c0;
+    --ht-border-strong:  #999;
+    --ht-text:           #1a1a1a;
+    --ht-text-muted:     #666;
+    --ht-text-sub:       #aaa;
+
+    --ht-work-accent:    #007a24;
+    --ht-work-bg:        rgba(0, 122, 36, 0.14);
+    --ht-rest-accent:    #004cc4;
+    --ht-rest-bg:        rgba(0, 76, 196, 0.12);
+    --ht-prepare-accent: #a05e00;
+    --ht-prepare-bg:     rgba(160, 94, 0, 0.14);
+    --ht-danger:         #c41010;
+    --ht-best-lap:       #a06000;
+
+    --ht-nav-bg:         rgba(0,0,0,0.06);
+    --ht-nav-border:     #bbb;
+}
+
+/* ============================================================
+   Tło fazy (50% opacity)
+   ============================================================ */
+.backgroundFill {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    transform-origin: bottom;
+    transition: transform 0.12s linear, background-color 0.5s ease;
+    opacity: 0.5; /* 50% */
+}
+.bgWork    { background-color: var(--ht-work-bg); }
+.bgRest    { background-color: var(--ht-rest-bg); }
+.bgPrepare { background-color: var(--ht-prepare-bg); }
+
+/* ============================================================
+   Zakładki
+   ============================================================ */
+.tabBar {
+    z-index: 10;
+    display: flex;
+    border-bottom: 1px solid var(--ht-border);
+    background-color: transparent; /* bez tła */
+    flex-shrink: 0;
+    position: relative;
+}
+
+.tabBtn {
+    flex: 1;
+    padding: 1rem 0.5rem;
+    font-family: var(--ht-font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    background: transparent;
+    color: var(--ht-text-muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    border-bottom: 3px solid transparent;
+}
+.tabBtn:hover     { color: var(--ht-text); }
+.tabBtnActive     { color: var(--ht-work-accent); border-bottom-color: var(--ht-work-accent); }
+.tabBtnActiveBlue { color: var(--ht-rest-accent); border-bottom-color: var(--ht-rest-accent); }
+
+/* ============================================================
+   Toolbar + Content
+   ============================================================ */
+.mainCard {
+    z-index: 9;
+    background-color: transparent;
+    border-bottom: 1px solid var(--ht-border);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.55rem 1rem;
+    background-color: transparent;
+    border-bottom: 1px solid var(--ht-border);
+    z-index: 10;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.toolbarBtn {
+    padding: 0.45rem 0.8rem;
+    border: 1px solid var(--ht-border);
+    border-radius: 2px;
+    background: transparent;
+    color: var(--ht-text-muted);
+    cursor: pointer;
+    font-family: var(--ht-font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.07em;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    transition: color 0.15s, border-color 0.15s, background-color 0.15s;
+    white-space: nowrap;
+}
+.toolbarBtn:hover { color: var(--ht-text); border-color: var(--ht-border-strong); }
+
+/* ============================================================
+   Główna treść
+   ============================================================ */
+.content {
+    padding: 1.25rem 1.5rem 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
+}
+
+/* ============================================================
+   Wyświetlacz timera
+   ============================================================ */
+.timerArea {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0 0.5rem;
+}
+
+.phaseLabel {
+    font-family: var(--ht-font-display);
+    font-size: 2.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ht-text-muted);
+    margin-bottom: 0.35rem;
+    min-height: 3.2rem;
+    display: flex;
+    align-items: center;
+}
+.phaseLabelWork    { color: var(--ht-work-accent); }
+.phaseLabelRest    { color: var(--ht-rest-accent); }
+.phaseLabelPrepare { color: var(--ht-prepare-accent); }
+
+.timerRow { display: flex; align-items: center; gap: 1.25rem; }
+
+.navBtn {
+    padding: 0.8rem;
+    border-radius: 4px;
+    border: 1px solid var(--ht-nav-border);
+    background: var(--ht-nav-bg);
+    color: var(--ht-text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.navBtn:hover:not(:disabled) {
+    border-color: var(--ht-work-accent);
+    color: var(--ht-work-accent);
+    background: rgba(22, 220, 100, 0.1);
+    box-shadow: 0 0 0 2px rgba(22,220,100,0.18);
+    transform: scale(1.07);
+}
+.navBtn:active:not(:disabled) { transform: scale(0.96); }
+.navBtn:disabled { opacity: 0.18; cursor: not-allowed; box-shadow: none; }
+
+.timerDigits {
+    font-family: var(--ht-font-display);
+    font-size: clamp(6rem, 22vw, 15rem);
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--ht-text);
+    font-variant-numeric: tabular-nums;
+    min-width: 4ch;
+    text-align: center;
+}
+
+.exerciseInfo { margin-top: 0.6rem; text-align: center; }
+.exerciseName { font-family: var(--ht-font-display); font-size: 2.4rem; letter-spacing: 0.06em; color: var(--ht-text); }
+.exerciseMeta { font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ht-text-muted); margin-top: 0.25rem; }
+
+.progressBar         { width: 100%; max-width: 500px; height: 6px; background-color: var(--ht-border); border-radius: 2px; margin-top: 0.9rem; overflow: hidden; }
+.progressFill        { height: 100%; border-radius: 2px; transition: width 0.1s linear, background-color 0.4s ease; }
+.progressFillWork    { background-color: var(--ht-work-accent); }
+.progressFillRest    { background-color: var(--ht-rest-accent); }
+.progressFillPrepare { background-color: var(--ht-prepare-accent); }
+
+/* ============================================================
+   Start / Reset
+   ============================================================ */
+.controlGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin: 0.9rem 0 0.75rem; }
+
+.btnStart {
+    padding: 1.3rem 1rem;
+    border: none; border-radius: 2px;
+    font-family: var(--ht-font-display); font-size: 2rem; letter-spacing: 0.1em;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    cursor: pointer;
+    transition: opacity 0.15s, transform 0.1s;
+    background-color: var(--ht-work-accent); color: #000;
+}
+.btnPause        { background-color: var(--ht-danger); color: #fff; }
+.btnStart:active { transform: scale(0.97); }
+
+.btnReset {
+    padding: 1.3rem 1rem;
+    border: 1px solid var(--ht-border); border-radius: 2px;
+    font-family: var(--ht-font-display); font-size: 2rem; letter-spacing: 0.1em;
+    display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+    cursor: pointer;
+    transition: border-color 0.15s, transform 0.1s;
+    background: var(--ht-surface-alt); color: var(--ht-text);
+}
+.btnReset:hover  { border-color: var(--ht-border-strong); }
+.btnReset:active { transform: scale(0.97); }
+
+/* ============================================================
+   Lista ćwiczeń
+   ============================================================ */
+.editCard {
+    background-color: var(--ht-surface-alt);
+    border: 1px solid var(--ht-border); border-radius: 2px;
+    padding: 1rem 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.editCardHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem; flex-wrap: wrap; gap: 0.4rem; }
+.editCardTitle  { font-family: var(--ht-font-mono); font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ht-text-muted); margin: 0; font-weight: 400; display: flex; align-items: center; gap: 0.4rem; }
+.exerciseList   { display: flex; flex-direction: column; gap: 0.35rem; }
+
+.exerciseRow {
+    padding: 0.65rem 0.9rem;
+    border: 1px solid var(--ht-border); border-radius: 2px;
+    display: grid; grid-template-columns: 1fr auto auto; gap: 0.75rem; align-items: center;
+    transition: border-color 0.2s, background-color 0.2s;
+    background: var(--ht-surface);
+}
+.exerciseRowActive { border-color: var(--ht-work-accent); background-color: rgba(22,220,100,0.05); }
+
+.exName       { font-family: var(--ht-font-display); font-size: 1.15rem; letter-spacing: 0.06em; color: var(--ht-text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.exStats      { display: flex; gap: 1.25rem; }
+.exStat       { display: flex; flex-direction: column; align-items: center; }
+.exStatLabel  { font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ht-text-muted); }
+.exStatValue  { font-family: var(--ht-font-display); font-size: 1.2rem; color: var(--ht-text); letter-spacing: 0.04em; }
+
+.btnSmall { font-family: var(--ht-font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.32rem 0.65rem; border-radius: 2px; border: 1px solid var(--ht-border); background: transparent; color: var(--ht-text-muted); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 0.3rem; }
+.btnSmall:hover       { border-color: var(--ht-work-accent); color: var(--ht-work-accent); }
+.btnSmallDanger:hover { border-color: var(--ht-danger); color: var(--ht-danger); }
+
+.btnTrash { background: transparent; border: none; cursor: pointer; color: var(--ht-text-sub); display: flex; transition: color 0.15s; padding: 0.2rem; }
+.btnTrash:hover { color: var(--ht-danger); }
+
+/* ============================================================
+   Modal
+   ============================================================ */
+.modalOverlay { position: absolute; inset: 0; background: rgba(0,0,0,0.78); z-index: 200; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+.modal { background: var(--ht-surface); border: 1px solid var(--ht-border-strong); border-radius: 4px; padding: 1.5rem; width: 100%; max-width: 560px; max-height: 70vh; overflow-y: auto; scrollbar-width: thin; }
+.modalTitle { font-family: var(--ht-font-display); font-size: 2rem; letter-spacing: 0.1em; color: var(--ht-text); margin: 0 0 1.25rem; }
+
+.infoGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.25rem; }
+.infoSection { display: flex; flex-direction: column; gap: 0.5rem; }
+.infoSectionTitle { font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ht-text-muted); margin-bottom: 0.2rem; font-family: var(--ht-font-mono); }
+.infoRow { display: flex; align-items: center; gap: 0.75rem; font-size: 0.82rem; color: var(--ht-text-muted); }
+
+.kbd { display: inline-flex; align-items: center; justify-content: center; padding: 0.2rem 0.55rem; background: var(--ht-surface-alt); border: 1px solid var(--ht-border-strong); border-radius: 3px; border-bottom-width: 2px; font-family: var(--ht-font-mono); font-size: 0.75rem; color: var(--ht-text); white-space: nowrap; flex-shrink: 0; min-width: 2.2rem; text-align: center; }
+
+.formGroup  { display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 0.9rem; }
+.formLabel  { font-size: 0.63rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ht-text-muted); }
+.formInput  { padding: 0.55rem 0.75rem; border-radius: 2px; border: 1px solid var(--ht-border); background: var(--ht-surface-alt); color: var(--ht-text); font-family: var(--ht-font-mono); font-size: 0.85rem; outline: none; transition: border-color 0.15s; box-sizing: border-box; width: 100%; }
+.formInput:focus { border-color: var(--ht-work-accent); }
+
+.exFormRowHeader { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 0.4rem; margin-bottom: 0.2rem; }
+.exFormRow       { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr auto; gap: 0.4rem; align-items: end; margin-bottom: 0.4rem; }
+.exFormHeaderLabel { font-size: 0.52rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ht-text-sub); text-align: center; }
+.exFormHeaderLabel:first-child { text-align: left; }
+
+.btnAddEx { width: 100%; padding: 0.5rem; border: 1px dashed var(--ht-border); background: transparent; color: var(--ht-text-muted); font-family: var(--ht-font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; border-radius: 2px; transition: all 0.15s; margin-top: 0.5rem; }
+.btnAddEx:hover { border-color: var(--ht-work-accent); color: var(--ht-work-accent); }
+
+.modalFooter { display: flex; gap: 0.5rem; margin-top: 1.25rem; }
+
+.btnPrimary { flex: 1; padding: 0.75rem; border: none; border-radius: 2px; font-family: var(--ht-font-display); font-size: 1.3rem; letter-spacing: 0.1em; background: var(--ht-work-accent); color: #000; cursor: pointer; transition: opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
+.btnPrimary:hover { opacity: 0.85; }
+
+.btnGhost { padding: 0.75rem 1.2rem; border: 1px solid var(--ht-border); border-radius: 2px; font-family: var(--ht-font-display); font-size: 1.3rem; letter-spacing: 0.1em; background: transparent; color: var(--ht-text); cursor: pointer; transition: border-color 0.15s; }
+.btnGhost:hover { border-color: var(--ht-border-strong); }
+
+/* ============================================================
+   Stoper
+   ============================================================ */
+.stopwatchArea { display: flex; align-items: center; justify-content: center; padding: 2rem 0 1.25rem; }
+.stopwatchDigits { font-family: var(--ht-font-display); font-size: clamp(4rem, 16vw, 11rem); line-height: 1; letter-spacing: 0.04em; color: var(--ht-text); font-variant-numeric: tabular-nums; text-align: center; }
+
+.swControls { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.75rem; }
+
+.btnSwStart { padding: 1.2rem 1rem; border: none; border-radius: 2px; font-family: var(--ht-font-display); font-size: 1.8rem; letter-spacing: 0.1em; cursor: pointer; transition: opacity 0.15s, transform 0.1s; background-color: var(--ht-rest-accent); color: #fff; }
+.btnSwStop   { background-color: var(--ht-danger); }
+.btnSwStart:active { transform: scale(0.97); }
+
+.swSecondaryBtns { display: flex; gap: 0.4rem; }
+.btnSecondary { flex: 1; padding: 1.2rem 0.5rem; border: 1px solid var(--ht-border); border-radius: 2px; font-family: var(--ht-font-display); font-size: 1.1rem; letter-spacing: 0.1em; background: var(--ht-surface-alt); color: var(--ht-text); cursor: pointer; transition: border-color 0.15s, transform 0.1s; }
+.btnSecondary:hover:not(:disabled) { border-color: var(--ht-border-strong); }
+.btnSecondary:disabled { opacity: 0.28; cursor: not-allowed; }
+.btnSecondary:active:not(:disabled) { transform: scale(0.97); }
+
+.lapsCard { background-color: var(--ht-surface-alt); border: 1px solid var(--ht-border); border-radius: 2px; padding: 0.9rem 1.1rem; margin-bottom: 0.5rem; }
+.lapsTitle { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ht-text-muted); margin: 0 0 0.6rem; }
+.lapsEmpty { text-align: center; color: var(--ht-text-muted); font-size: 0.85rem; padding: 0.75rem 0; letter-spacing: 0.06em; margin: 0; }
+
+.lapRow { display: grid; grid-template-columns: auto 1fr 1fr auto; align-items: center; padding: 0.45rem 0; border-bottom: 1px solid var(--ht-border); font-family: var(--ht-font-mono); font-size: 0.95rem; gap: 0.75rem; }
+.lapRow:last-child { border-bottom: none; }
+.lapIndex { color: var(--ht-text-muted); font-size: 0.78rem; min-width: 2rem; }
+.lapTime  { color: var(--ht-text); }
+.lapDelta { color: var(--ht-text-muted); font-size: 0.78rem; text-align: right; }
+.lapBadge { font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.18rem 0.45rem; border-radius: 2px; background: var(--ht-best-lap); color: #000; font-weight: 500; white-space: nowrap; }
+.lapRowBest { background: rgba(255,215,0,0.07); }
+
+/* ============================================================
+   Fullscreen‑only scroll
+   ============================================================ */
+.isFs .content { overflow: hidden; }
+.isFs .lapsCard { max-height: calc(100vh - 550px); overflow-y: auto; }
+.isFs .exerciseList { max-height: calc(100vh - 360px); overflow-y: auto; }
+
+/* ============================================================
+   Responsywność — ciasne układy
+   ============================================================ */
+@media (max-width: 520px) {
+    .controlGrid { grid-template-columns: 1fr; }
+    .swControls { grid-template-columns: 1fr; }
+    .swSecondaryBtns { flex-direction: column; }
+    .btnSwStart, .btnSecondary { width: 100%; }
+}
+
+@media (max-width: 620px) {
+    .exStats    { gap: 0.5rem; }
+    .exerciseRow { grid-template-columns: 1fr; gap: 0.4rem; }
+    .exFormRow, .exFormRowHeader { grid-template-columns: 1fr 1fr 1fr; }
+    .exFormRow > *:first-child, .exFormRowHeader > *:first-child { grid-column: 1 / -1; }
+    .content    { padding: 0.75rem 0.75rem 1rem; }
+    .phaseLabel { font-size: 1.8rem; }
+    .infoGrid   { grid-template-columns: 1fr; }
+    .toolbar    { flex-wrap: wrap; gap: 0.35rem; }
+}
