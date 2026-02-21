@@ -1,0 +1,304 @@
+/* ── Zmienne ── */
+:root {
+  --orm-primary: var(--ifm-color-success, #2e8540);
+  --orm-track-bg: rgba(0, 0, 0, 0.15);
+}
+
+/* ── Wrapper ── */
+.wrapper {
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 16px 0;
+  background: var(--ifm-background-surface-color);
+}
+
+/* ── Suwak ── */
+.range {
+  -webkit-appearance: none;
+  appearance: none;
+  /* flex: 1 wypełnia całe wolne miejsce w wierszu */
+  flex: 1 1 0;
+  min-width: 0;
+  height: 6px;
+  border-radius: 3px;
+  cursor: pointer;
+  outline: none;
+  align-self: center;
+  background: linear-gradient(
+          to right,
+          var(--orm-primary) 0%,
+          var(--orm-primary) var(--fill, 0%),
+          var(--orm-track-bg) var(--fill, 0%),
+          var(--orm-track-bg) 100%
+  );
+}
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--orm-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+.range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+.range::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border: none; border-radius: 50%;
+  background: var(--orm-primary);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
+.range::-moz-range-track {
+  height: 6px; border-radius: 3px;
+  background: var(--orm-track-bg);
+}
+.range::-moz-range-progress {
+  height: 6px; border-radius: 3px;
+  background: var(--orm-primary);
+}
+
+/* ── Przełącznik ── */
+.switch {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 48px; height: 28px;
+}
+.switch input { opacity: 0; width: 0; height: 0; }
+.switchSlider {
+  position: absolute; inset: 0;
+  cursor: pointer;
+  background: var(--ifm-color-emphasis-200);
+  border-radius: 999px;
+  transition: background 0.2s ease;
+}
+.switchSlider::before {
+  content: "";
+  position: absolute;
+  height: 22px; width: 22px;
+  left: 3px; top: 3px;
+  background: #fff;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+.switch input:checked + .switchSlider { background: var(--orm-primary); }
+.switch input:checked + .switchSlider::before { transform: translateX(20px); }
+.switchLabel { margin-left: 4px; user-select: none; }
+
+/* ── Układ wiersza suwaka ── */
+.row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  /* brak flex-wrap – suwak ma się rozciągać */
+}
+
+/* ── Pole liczby z sufiksem ── */
+.inputSuffix { position: relative; display: inline-block; flex-shrink: 0; }
+.number {
+  width: 100px;
+  padding: 8px 32px 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+}
+.number:focus { outline: 2px solid rgba(46, 133, 64, 0.35); }
+.number::-webkit-inner-spin-button,
+.number::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.number[type="number"] { -moz-appearance: textfield; }
+.suffix {
+  position: absolute;
+  right: 8px; top: 50%; transform: translateY(-50%);
+  color: var(--ifm-font-color-secondary);
+  pointer-events: none; font-weight: 600;
+}
+.label { display: block; font-weight: 600; margin-bottom: 4px; }
+
+/* ── Przełącznik wewnątrz bloku highlight ── */
+.highlightSwitchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0 0;
+  padding-top: 10px;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* ── Blok wyróżniony (Średnia / Ciężar dla) ── */
+.highlight {
+  padding: 14px 16px;
+  background: var(--ifm-color-emphasis-100);
+  border-left: 4px solid var(--orm-primary);
+  border-radius: 8px;
+  margin: 0;
+}
+.highlightLabel {
+  font-size: 13px; opacity: 0.75;
+  margin: 0 0 2px;
+  text-transform: uppercase; letter-spacing: 0.04em;
+}
+.highlightValue {
+  font-size: 28px; font-weight: 800;
+  color: var(--orm-primary); margin: 0;
+}
+.highlightSelected { border-left-color: #2980b9; }
+.highlightSelected .highlightValue { color: #2980b9; }
+
+/* ── Karty formuł – jeden rząd na desktop ── */
+.formulaGrid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px; margin-top: 10px;
+}
+@media (max-width: 700px) {
+  .formulaGrid { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 420px) {
+  .formulaGrid { grid-template-columns: repeat(2, 1fr); }
+}
+.card {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 6px; padding: 7px 10px;
+  background: var(--ifm-background-color); margin: 0;
+}
+.card dt {
+  font-size: 11px; opacity: 0.7; margin: 0 0 2px;
+  text-transform: uppercase; letter-spacing: 0.03em;
+}
+.card dd { font-weight: 600; font-size: 15px; margin: 0; }
+
+.formulaSource {
+  font-size: 12px; opacity: 0.7;
+  margin-top: 8px; text-align: right;
+}
+
+/* ── Sekcja suwaka %1RM ── */
+.pctSection { margin-bottom: 12px; }
+.pctHint { font-size: 13px; opacity: 0.85; margin-top: 4px; }
+
+/* ── Tabela + wizualizacja obok siebie ── */
+.tableAndViz {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: start;
+  margin-top: 16px;
+}
+@media (max-width: 700px) {
+  .tableAndViz { grid-template-columns: 1fr; }
+}
+
+/* ── Tabela ── */
+.tableWrap { min-width: 0; }
+.tableWrap h4 { margin: 0 0 8px; }
+/* contain: inline-size – akapit nie uczestniczy w obliczaniu szer. rodzica */
+.tableNote {
+  font-size: 13px; opacity: 0.85;
+  margin-top: 8px;
+  contain: inline-size;
+}
+
+/* Podświetlony wiersz */
+.rowActive {
+  background: rgba(46, 133, 64, 0.22) !important;
+  font-weight: 700;
+}
+.rowActive td { color: var(--orm-primary); }
+
+/* ── Wizualizacja talerzy ── */
+.vizWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.vizTitle { margin: 0 0 8px; }
+
+/* Gryf – wypełnia dostępną szerokość przez flex */
+.vizBarbell {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  /* wysokość ustawiana inline przez maxH + 20 */
+}
+/* Pręt – rośnie by wypełnić wolną przestrzeń */
+.vizBar {
+  flex: 1 1 auto;
+  min-width: 16px;
+  height: 12px;
+  background: #aaa;
+  border-radius: 2px 0 0 2px;
+}
+.vizSleeve {
+  flex: 0 0 16px;
+  height: 22px;
+  background: #888;
+  border-radius: 0 4px 4px 0;
+}
+.vizPlates {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+.vizPlate {
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  writing-mode: vertical-rl;
+  font-size: 11px; font-weight: 700;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45);
+  cursor: default;
+  transition: opacity 0.15s;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.25), 0 1px 3px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+.vizPlate:hover { opacity: 0.82; }
+
+.vizBarbellSelect {
+  display: flex; align-items: center; gap: 8px; font-size: 13px;
+}
+.vizBarbellSelect select {
+  padding: 3px 6px; border-radius: 6px;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  background: var(--ifm-background-color);
+  font-size: 13px; cursor: pointer;
+}
+/* Powiększony tekst listy talerzy */
+.vizList {
+  font-size: 18px;
+  line-height: 1.8;
+}
+.vizListSwatch {
+  display: inline-block;
+  width: 13px; height: 13px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+.vizTotal {
+  margin-top: 6px;
+  font-weight: 700;
+  font-size: 18px;
+}
+.vizRemainder {
+  font-size: 15px;
+  color: var(--ifm-color-danger);
+  margin-top: 4px;
+}
+.vizOverflow {
+  font-size: 15px;
+  color: var(--ifm-color-warning, #e6a817);
+  margin-top: 4px;
+}
+.vizEmpty { font-size: 15px; opacity: 0.6; font-style: italic; }

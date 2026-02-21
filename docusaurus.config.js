@@ -99,12 +99,16 @@ const config = {
                   to: '/trening/indywidualny',
                 },
                 {
-                  label: 'Produkt B',
-                  to: '/trening/indywidualny',
+                  label: 'Kalkulator 1rm',
+                  to: '/trening/kalkulator',
                 },
                 {
-                  label: 'Produkt C',
-                  to: '/trening/indywidualny',
+                  label: 'timer',
+                  to: '/trening/timer',
+                },
+                {
+                  label: 'grafik',
+                  to: '/trening/grafik',
                 },
               ],
             },
