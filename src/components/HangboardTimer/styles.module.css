@@ -19,11 +19,11 @@
     --ht-text-sub:       #4a4a4a;
 
     --ht-work-accent:    #16dc64;
-    --ht-work-bg:        rgba(22, 220, 100, 0.18);
+    --ht-work-bg:        rgba(22, 220, 100, 0.50);
     --ht-rest-accent:    #3891ff;
-    --ht-rest-bg:        rgba(56, 145, 255, 0.20);
+    --ht-rest-bg:        rgba(56, 145, 255, 0.50);
     --ht-prepare-accent: #ffaf1e;
-    --ht-prepare-bg:     rgba(255, 175, 30, 0.20);
+    --ht-prepare-bg:     rgba(255, 175, 30, 0.50);
     --ht-danger:         #ff4d4d;
     --ht-best-lap:       #ffd700;
 
@@ -57,11 +57,11 @@
     --ht-text-sub:       #aaa;
 
     --ht-work-accent:    #007a24;
-    --ht-work-bg:        rgba(0, 122, 36, 0.14);
+    --ht-work-bg:        rgba(0, 122, 36, 0.90);
     --ht-rest-accent:    #004cc4;
-    --ht-rest-bg:        rgba(0, 76, 196, 0.12);
+    --ht-rest-bg:        rgba(0, 76, 196, 0.90);
     --ht-prepare-accent: #a05e00;
-    --ht-prepare-bg:     rgba(160, 94, 0, 0.14);
+    --ht-prepare-bg:     rgba(160, 94, 0, 0.90);
     --ht-danger:         #c41010;
     --ht-best-lap:       #a06000;
 
